@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Trupeer inspired light high-contrast palette */
+  --background: #fbf9f4;
+  --foreground: #1a1a1a;
+  
+  --primary: #1a1a1a;
+  --primary-foreground: #ffffff;
+  
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  
+  --border: #e5e7eb;
+}
+
+.dark {
+  --background: #111111;
+  --foreground: #f4f4f5;
+  
+  --primary: #ffffff;
+  --primary-foreground: #111111;
+  
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  
+  --border: #333333;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Serif accent utility */
+.font-serif {
+  font-family: var(--font-serif), serif;
+}
+
+/* Mono accent utility */
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+::selection {
+  background-color: rgba(26, 26, 26, 0.1);
+  color: inherit;
+}
+
+.dark ::selection {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Utility for the Trupeer-style flat card */
+.flat-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.dark .flat-card {
+  background-color: #1a1a1a;
 }
