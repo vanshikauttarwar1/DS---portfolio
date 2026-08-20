@@ -8,10 +8,39 @@ export default function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:vanshikauttarwar14@gmail.com?subject=Portfolio Message from ${name}&body=${message}%0D%0A%0D%0AFrom: ${email}`;
+    setStatus("submitting");
+
+    const formData = new FormData();
+    formData.append("access_key", "531440b1-b578-4745-8e1f-0ceb79b80252");
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("message", message);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setStatus("success");
+        setName("");
+        setEmail("");
+        setMessage("");
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch (err) {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   return (
@@ -115,9 +144,17 @@ export default function ContactPage() {
               </div>
               <button 
                 type="submit"
-                className="w-full py-3 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors shadow-sm mt-4"
+                disabled={status === "submitting" || status === "success"}
+                className={`w-full py-3 font-medium rounded-md shadow-sm mt-4 transition-colors ${
+                  status === "success" ? "bg-emerald-500 text-white" : 
+                  status === "error" ? "bg-red-500 text-white" : 
+                  "bg-primary text-primary-foreground hover:bg-primary/90"
+                }`}
               >
-                Send Message
+                {status === "submitting" ? "Sending..." : 
+                 status === "success" ? "Message Sent!" :
+                 status === "error" ? "Error! Try Again." :
+                 "Send Message"}
               </button>
             </form>
           </div>
