@@ -1,9 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { Mail, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function ContactPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    window.location.href = `mailto:vanshikauttarwar14@gmail.com?subject=Portfolio Message from ${name}&body=${message}%0D%0A%0D%0AFrom: ${email}`;
+  };
+
   return (
     <main className="container mx-auto px-6 py-24 min-h-[90vh]">
       <div className="max-w-4xl mx-auto">
@@ -66,12 +76,15 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className="flat-card p-8 rounded-2xl">
             <h2 className="text-2xl font-bold tracking-tight mb-6">Send a Message</h2>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground mb-2">Name</label>
                 <input 
                   type="text" 
                   id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
                   className="w-full p-3 rounded-md border border-border bg-white focus:outline-none focus:border-primary transition-colors text-sm"
                   placeholder="John Doe"
                 />
@@ -81,6 +94,9 @@ export default function ContactPage() {
                 <input 
                   type="email" 
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                   className="w-full p-3 rounded-md border border-border bg-white focus:outline-none focus:border-primary transition-colors text-sm"
                   placeholder="john@example.com"
                 />
@@ -89,6 +105,9 @@ export default function ContactPage() {
                 <label htmlFor="message" className="block text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground mb-2">Message</label>
                 <textarea 
                   id="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  required
                   rows={4}
                   className="w-full p-3 rounded-md border border-border bg-white focus:outline-none focus:border-primary transition-colors text-sm resize-none"
                   placeholder="Hi Vanshika, I'd like to talk about..."
