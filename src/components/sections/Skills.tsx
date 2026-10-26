@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 const SKILL_CATEGORIES = [
   {
     title: "AI & Generative AI",
-    skills: ["LLMs", "Prompt Engineering", "RAG", "Agentic Workflows", "Structured Outputs", "Gemini", "Claude", "GPT-4o", "Qwen", "LangChain", "LangGraph", "MCP", "Prompt Optimization", "LLM Observability (Langfuse)"],
+    skills: ["LLMs", "Prompt Engineering", "RAG", "Agentic Workflows", "Structured Outputs", "Gemini", "Anthropic", "OpenAI", "LangChain", "LangGraph", "MCP", "Prompt Optimization", "LLM Observability (Langfuse)", "LLM evaluation and benchmarking"],
   },
   {
     title: "AI Specializations",
-    skills: ["Vision Language Models (VLMs)", "Whisper", "Speech AI", "OCR Pipelines", "Document Intelligence"],
+    skills: ["Vision Language Models (VLMs)", "OCR Pipelines", "Document Intelligence"],
   },
   {
     title: "Backend",
